@@ -1,0 +1,3 @@
+Rows before cleaning: 303
+Rows after outlier removal: 216
+Imputation: median then KNN (if needed). Outliers removed by IQR.
