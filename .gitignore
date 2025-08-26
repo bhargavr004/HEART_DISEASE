@@ -2,6 +2,4 @@ venv/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-outputs/
-data/processed/
-ocr_samples/
+
