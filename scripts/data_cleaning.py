@@ -62,6 +62,8 @@ def main():
         f.write(f"Rows after outlier removal: {after_rows}\n")
         f.write("Imputation: median then KNN (if needed). Outliers removed by IQR.\n")
     print("Cleaned data saved to", CLEANED)
-
+    print(df.info())
+    print(df.head())
+    print(df.isnull().sum())
 if __name__ == "__main__":
     main()
