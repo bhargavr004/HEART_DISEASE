@@ -1,3 +1,4 @@
-Rows before cleaning: 303
-Rows after outlier removal: 216
+Rows before cleaning: 1190
+Rows after outlier removal: 559
+Columns: ['age', 'sex', 'chest_pain_type', 'resting_bp_s', 'cholesterol', 'fasting_blood_sugar', 'resting_ecg', 'max_heart_rate', 'exercise_angina', 'oldpeak', 'st_slope', 'target']
 Imputation: median then KNN (if needed). Outliers removed by IQR.

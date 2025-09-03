@@ -1,0 +1,31 @@
+{
+  "l1_selected": [
+    "age",
+    "resting_bp_s",
+    "cholesterol",
+    "resting_ecg",
+    "max_heart_rate",
+    "exercise_angina",
+    "oldpeak",
+    "st_slope",
+    "chest_pain_type_3",
+    "chest_pain_type_4",
+    "age_group_senior",
+    "age_group_young",
+    "systolic",
+    "cholesterol.1"
+  ],
+  "rfe_selected": [
+    "age",
+    "resting_ecg",
+    "max_heart_rate",
+    "exercise_angina",
+    "oldpeak",
+    "st_slope",
+    "chest_pain_type_4",
+    "age_group_old",
+    "age_group_senior",
+    "age_group_young"
+  ],
+  "corr_drop": []
+}

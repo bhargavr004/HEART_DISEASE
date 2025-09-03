@@ -7,7 +7,7 @@ import seaborn as sns
 from ydata_profiling import ProfileReport
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / "data" / "raw" / "heart_raw.csv"
+RAW = ROOT / "data" / "raw" / "heart_combined.csv"
 OUT = ROOT / "outputs"
 FIG = OUT / "figures"
 OUT.mkdir(parents=True, exist_ok=True)

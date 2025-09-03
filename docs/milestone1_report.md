@@ -1,22 +1,25 @@
 
 # Milestone 1 Summary Report
-Generated on: 2025-08-26 20:21:08
+Generated on: 2025-09-04 01:02:55
+
+## Data Source
+- Combined dataset (Hungary, Cleveland, Switzerland, VA)
 
 ## Data Cleaning
-- Rows before cleaning: 303
-- Rows after cleaning: 216
+- Rows before cleaning: 1190
+- Rows after cleaning: 559
 
 ## Feature Engineering
-- Total features after engineering: 22
+- Total features after engineering: 20
 
 ## Splits
 
-- Train: (151, 22), Class balance:
-{0: 0.5761589403973509, 1: 0.423841059602649}
-- Val: (32, 22), Class balance:
-{0: 0.59375, 1: 0.40625}
-- Test: (33, 22), Class balance:
-{0: 0.5757575757575758, 1: 0.42424242424242425}
+- Train: (391, 20), Class balance:
+{1: 0.5421994884910486, 0: 0.4578005115089514}
+- Val: (84, 20), Class balance:
+{1: 0.5476190476190477, 0: 0.4523809523809524}
+- Test: (84, 20), Class balance:
+{1: 0.5357142857142857, 0: 0.4642857142857143}
 
 
 ## Notes

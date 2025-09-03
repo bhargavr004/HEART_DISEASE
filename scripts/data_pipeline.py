@@ -5,7 +5,7 @@ import subprocess
 import datetime
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_RAW = ROOT / "data" / "raw" / "heart_raw.csv"
+DATA_RAW = ROOT / "data" / "raw" / "heart_combined.csv"  # UPDATED
 DATA_PROCESSED = ROOT / "data" / "processed"
 DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 DOCS = ROOT / "docs"
@@ -65,18 +65,14 @@ def save_splits(X_train, X_val, X_test, y_train, y_val, y_test):
     y_val.to_csv(DATA_PROCESSED / "y_val.csv", index=False)
     y_test.to_csv(DATA_PROCESSED / "y_test.csv", index=False)
 
-def validate_data(df, name):
-    report = []
-    report.append(f"Dataset: {name}")
-    report.append(f"Shape: {df.shape}")
-    report.append(f"Missing values:\n{df.isnull().sum().sum()}")
-    return "\n".join(report)
-
 def generate_milestone_report(before_rows, after_rows, features_count, splits_info):
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     report = f"""
 # Milestone 1 Summary Report
 Generated on: {now}
+
+## Data Source
+- Combined dataset (Hungary, Cleveland, Switzerland, VA)
 
 ## Data Cleaning
 - Rows before cleaning: {before_rows}
@@ -92,7 +88,7 @@ Generated on: {now}
 - OCR integration: {'Yes' if OCR_FILE.exists() else 'No'}
 - Validation checks: Passed (no missing values after processing)
 """
-    with open(DOCS / "milestone1_report.md", "w") as f:
+    with open(DOCS / "milestone1_report.md", "w", encoding="utf-8") as f:
         f.write(report)
     print("Milestone report generated at docs/milestone1_report.md")
 
@@ -100,7 +96,7 @@ Generated on: {now}
 # Main Pipeline
 # -----------------------------
 def main():
-    print("=== DAY 6: FULL DATA PIPELINE START ===")
+    print("=== FULL DATA PIPELINE START ===")
 
     # Step 1: Run Data Cleaning
     run_subprocess(ROOT / "scripts" / "data_cleaning.py")
@@ -134,7 +130,7 @@ def main():
     # Step 6: Generate milestone report
     generate_milestone_report(before_rows, after_rows, X_train.shape[1], splits_info)
 
-    print("=== DAY 6: FULL DATA PIPELINE COMPLETE ===")
+    print("=== FULL DATA PIPELINE COMPLETE ===")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,12 @@
+{
+  "model": "advanced_stacking_calibrated",
+  "threshold": 0.15000000000000002,
+  "metrics": {
+    "accuracy": 0.9404761904761905,
+    "precision": 0.9347826086956522,
+    "recall": 0.9555555555555556,
+    "f1": 0.945054945054945,
+    "specificity": 0.9230769230769231,
+    "roc_auc": 0.9706552706552707
+  }
+}

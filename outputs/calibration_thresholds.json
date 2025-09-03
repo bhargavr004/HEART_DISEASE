@@ -1,0 +1,23 @@
+{
+  "model_used": "rf_tuned",
+  "brier_val": 0.15151723956256888,
+  "thresholds": {
+    "low": [
+      0.0,
+      0.3
+    ],
+    "moderate": [
+      0.3,
+      0.7
+    ],
+    "high": [
+      0.7,
+      1.01
+    ]
+  },
+  "category_counts": {
+    "high": 10,
+    "low": 19,
+    "moderate": 3
+  }
+}

@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
+import joblib
 
 ROOT = Path(__file__).resolve().parents[1]
 CLEANED = ROOT / "data" / "processed" / "heart_cleaned.csv"
@@ -14,19 +15,27 @@ def load():
     return pd.read_csv(CLEANED)
 
 def derive_features(df):
-    # BMI example: if dataset doesn't have weight/height this is illustrative.
     # Create age groups
-    df['age_group'] = pd.cut(df['age'], bins=[0,35,50,65,120], labels=['young','mid','senior','old'])
-    # chest pain type as categorical - if numeric codes, keep as category
-    df['cp'] = df['cp'].astype('category')
-    # risk score (simple linear combination as example)
-    df['risk_score_simple'] = (df['age'] / df['age'].max()) + df['trestbps']/df['trestbps'].max() + df['chol']/df['chol'].max()
+    df['age_group'] = pd.cut(df['age'], bins=[0, 35, 50, 65, 120], labels=['young', 'mid', 'senior', 'old'])
+
+    # Convert chest pain type to category
+    if 'chest_pain_type' in df.columns:
+        df['chest_pain_type'] = df['chest_pain_type'].astype('category')
+
+    # Risk score (simple example)
+    if all(col in df.columns for col in ['age', 'resting_bp_s', 'cholesterol']):
+        df['risk_score_simple'] = (
+            (df['age'] / df['age'].max()) +
+            (df['resting_bp_s'] / df['resting_bp_s'].max()) +
+            (df['cholesterol'] / df['cholesterol'].max())
+        )
+
     return df
 
 def transform(df):
     numeric_features = df.select_dtypes(include=['number']).columns.tolist()
     numeric_features = [c for c in numeric_features if c != 'target']
-    categorical_features = df.select_dtypes(include=['category','object']).columns.tolist()
+    categorical_features = df.select_dtypes(include=['category', 'object']).columns.tolist()
 
     ct = ColumnTransformer([
         ('scale', StandardScaler(), numeric_features),
@@ -34,14 +43,19 @@ def transform(df):
     ], remainder='drop')
 
     X = ct.fit_transform(df[numeric_features + categorical_features])
-    # create feature names
+
+    # Feature names
     ohe_cols = []
     if categorical_features:
-        ohe = ct.named_transformers_['onehot']
         ohe_cols = ct.named_transformers_['onehot'].get_feature_names_out(categorical_features).tolist()
     feature_names = numeric_features + ohe_cols
+
     X_df = pd.DataFrame(X, columns=feature_names)
     X_df['target'] = df['target'].values
+
+    # Save ColumnTransformer for later use in modeling
+    joblib.dump(ct, ROOT / "models" / "column_transformer.joblib")
+
     return X_df, ct
 
 def feature_importance(X_df):
@@ -50,6 +64,7 @@ def feature_importance(X_df):
     rf = RandomForestClassifier(n_estimators=200, random_state=42)
     rf.fit(X, y)
     imp = pd.Series(rf.feature_importances_, index=X.columns).sort_values(ascending=False)
+    (ROOT / "outputs").mkdir(exist_ok=True)
     imp.to_csv(ROOT / "outputs" / "feature_importances.csv")
     return imp
 
