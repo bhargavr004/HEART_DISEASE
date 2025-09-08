@@ -80,7 +80,5 @@
 | 14   | cholesterol_high        | 0.050      |
 | 15   | oldpeak_high            | 0.048      |
 
-**Visual Chart:**  
-![Top SHAP Features](shap_top15_features.png)
 
 ---
