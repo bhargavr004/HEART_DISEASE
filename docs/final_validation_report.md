@@ -33,6 +33,5 @@ Low         250
 Moderate      6
 ```
 
-![Risk Distribution](risk_distribution.png)
 
 
