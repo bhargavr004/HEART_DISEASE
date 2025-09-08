@@ -1,0 +1,21 @@
+{
+  "method": "isotonic",
+  "features": [
+    "age",
+    "sex",
+    "resting_bp_s",
+    "cholesterol",
+    "fasting_blood_sugar",
+    "resting_ecg",
+    "max_heart_rate",
+    "exercise_angina",
+    "oldpeak",
+    "st_slope",
+    "risk_score_simple",
+    "chest_pain_type_3",
+    "chest_pain_type_4",
+    "age_group_old",
+    "age_group_senior",
+    "age_group_young"
+  ]
+}

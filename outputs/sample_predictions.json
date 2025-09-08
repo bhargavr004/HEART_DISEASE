@@ -1,0 +1,101 @@
+{
+  "model_used": "D:\\Heart_disease\\models\\rf_tuned_calibrated.joblib",
+  "n_input": 10,
+  "thresholds": {
+    "low": 0.0,
+    "moderate": 0.3,
+    "high": 0.7
+  },
+  "results": [
+    {
+      "index": 0,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 1,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 2,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 3,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 4,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 5,
+      "probability": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0,
+      "risk_category": "High",
+      "composite_score": 0.75,
+      "explanation": null
+    },
+    {
+      "index": 6,
+      "probability": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0,
+      "risk_category": "High",
+      "composite_score": 0.75,
+      "explanation": null
+    },
+    {
+      "index": 7,
+      "probability": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "risk_category": "Low",
+      "composite_score": 0.0,
+      "explanation": null
+    },
+    {
+      "index": 8,
+      "probability": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0,
+      "risk_category": "High",
+      "composite_score": 0.75,
+      "explanation": null
+    },
+    {
+      "index": 9,
+      "probability": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0,
+      "risk_category": "High",
+      "composite_score": 0.75,
+      "explanation": null
+    }
+  ]
+}

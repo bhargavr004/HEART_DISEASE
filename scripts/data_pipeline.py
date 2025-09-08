@@ -6,7 +6,7 @@ import datetime
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_RAW = ROOT / "data" / "raw" / "heart_combined.csv"  # UPDATED
-DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_PROCESSED = ROOT / "data" / "processed" 
 DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 DOCS = ROOT / "docs"
 DOCS.mkdir(parents=True, exist_ok=True)

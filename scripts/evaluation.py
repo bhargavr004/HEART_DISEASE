@@ -161,13 +161,10 @@ def main():
         (MODELS / "svm_tuned.joblib", "svm_tuned"),
         (MODELS / "mlp_tuned.joblib", "mlp_tuned"),
         (MODELS / "voting_soft.joblib", "voting_soft"),
-        (MODELS / "stacking.joblib", "stacking"),
         (MODELS / "keras_mlp.h5", "keras_mlp"),
         (MODELS / "final_calibrated_model.joblib", "final_calibrated"),
         (MODELS / "xgb_smote_advanced.joblib", "xgb_smote_advanced"),
-        (MODELS / "stacking_advanced.joblib", "stacking_advanced"),
-        (MODELS / "voting_advanced.joblib", "voting_advanced"),
-        (MODELS / "advanced_stacking_calibrated.joblib", "advanced_stacking_calibrated"),
+        
     ]
 
     results = []

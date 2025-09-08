@@ -1,7 +1,4 @@
-"""
-Assemble final performance & interpretability report into docs/final_performance_report.md
-Run: python scripts/final_report_generator.py
-"""
+
 import json
 from pathlib import Path
 import pandas as pd
