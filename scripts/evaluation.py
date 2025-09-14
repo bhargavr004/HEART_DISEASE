@@ -153,18 +153,13 @@ def main():
     # IMPORTANT: we no longer apply ColumnTransformer here.
     # All models are expected to consume the same engineered feature schema as the splits.
     candidate_paths = [
-        (MODELS / "baseline_logreg.joblib", "logreg_baseline"),
         (MODELS / "rf.joblib", "rf"),
-        (MODELS / "svm_rbf.joblib", "svm_rbf"),
-        (MODELS / "mlp.joblib", "mlp"),
         (MODELS / "rf_tuned.joblib", "rf_tuned"),
+        (MODELS / "svm_rbf.joblib", "svm_rbf"),
         (MODELS / "svm_tuned.joblib", "svm_tuned"),
+        (MODELS / "mlp.joblib", "mlp"),
         (MODELS / "mlp_tuned.joblib", "mlp_tuned"),
-        (MODELS / "voting_soft.joblib", "voting_soft"),
         (MODELS / "keras_mlp.h5", "keras_mlp"),
-        (MODELS / "final_calibrated_model.joblib", "final_calibrated"),
-        (MODELS / "xgb_smote_advanced.joblib", "xgb_smote_advanced"),
-        
     ]
 
     results = []

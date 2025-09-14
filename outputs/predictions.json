@@ -1,5 +1,5 @@
 {
-  "model_used": "D:\\Heart_disease\\models\\rf_tuned_calibrated.joblib",
+  "model_used": "D:\\Heart_disease\\models\\rf.joblib",
   "n_input": 1,
   "thresholds": {
     "low": 0.0,

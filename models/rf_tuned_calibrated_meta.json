@@ -2,7 +2,6 @@
   "method": "isotonic",
   "features": [
     "age",
-    "sex",
     "resting_bp_s",
     "cholesterol",
     "fasting_blood_sugar",

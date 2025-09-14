@@ -1,24 +1,26 @@
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from utils import load_splits, summarize_metrics, save_report, save_model
+from joblib import dump
+from pathlib import Path
 
-def main():
-    X_train, X_val, X_test, y_train, y_val, y_test = load_splits()
+ROOT = Path(__file__).resolve().parents[1]
+FEATURES_FPATH = ROOT / "data" / "processed" / "heart_features.csv"
+MODEL_FPATH = ROOT / "models" / "rf.joblib"
 
-    rf = RandomForestClassifier(
-        n_estimators=300,
-        max_depth=None,
-        min_samples_split=2,
-        random_state=42,
-        n_jobs=-1
-    )
-    rf.fit(X_train, y_train)
-    y_val_pred = rf.predict(X_val)
-    y_val_proba = rf.predict_proba(X_val)[:,1]
+# Load features
+df = pd.read_csv(FEATURES_FPATH)
+X = df.drop("target", axis=1)
+y = df["target"]
 
-    val_metrics = summarize_metrics(y_val, y_val_pred, y_val_proba)
-    save_report({"model":"random_forest","val_metrics":val_metrics}, "rf_val.json")
-    save_model(rf, "rf.joblib")
-    print("VAL Metrics:", val_metrics)
+# Simple split (e.g., last 15% for test)
+test_size = int(len(X) * 0.15)
+X_train, X_test = X.iloc[:-test_size], X.iloc[-test_size:]
+y_train, y_test = y.iloc[:-test_size], y.iloc[-test_size:]
 
-if __name__ == "__main__":
-    main()
+# Train RF
+rf = RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+
+# Save model
+dump(rf, MODEL_FPATH)
+print(f"Random forest model saved to {MODEL_FPATH}")

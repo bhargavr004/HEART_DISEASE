@@ -33,8 +33,12 @@ def derive_features(df):
     return df
 
 def transform(df):
+    # Ensure 'sex' is treated as categorical (even if it's int)
+    if 'sex' in df.columns and not pd.api.types.is_categorical_dtype(df['sex']):
+        df['sex'] = df['sex'].astype('category')
+
     numeric_features = df.select_dtypes(include=['number']).columns.tolist()
-    numeric_features = [c for c in numeric_features if c != 'target']
+    numeric_features = [c for c in numeric_features if c != 'target' and c != 'sex']
     categorical_features = df.select_dtypes(include=['category', 'object']).columns.tolist()
 
     ct = ColumnTransformer([

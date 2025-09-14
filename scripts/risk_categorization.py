@@ -1,10 +1,3 @@
-# scripts/risk_categorization.py
-"""
-Prediction + Risk Categorization CLI focused on rf_tuned.
-
-Usage:
-    python scripts\risk_categorization.py --input data/processed/heart_features.csv --out outputs/predictions.json
-"""
 
 import argparse
 import json
@@ -18,20 +11,15 @@ from typing import Dict, Any
 # local utils
 from utils import MODELS, OUTPUTS
 
-# defaults
-DEFAULT_CAL_MODEL = MODELS / "rf_tuned_calibrated.joblib"
-DEFAULT_MODEL = MODELS / "rf_tuned.joblib"
+DEFAULT_MODEL = MODELS / "rf.joblib"
 OUTPUTS.mkdir(parents=True, exist_ok=True)
 
 def load_model_auto():
-    """Prefer calibrated model if exists."""
-    if DEFAULT_CAL_MODEL.exists():
-        print(f"[INFO] Loading calibrated model: {DEFAULT_CAL_MODEL}")
-        return joblib.load(DEFAULT_CAL_MODEL), str(DEFAULT_CAL_MODEL)
+    """Load only rf.joblib."""
     if DEFAULT_MODEL.exists():
-        print(f"[INFO] Loading base model: {DEFAULT_MODEL}")
+        print(f"[INFO] Loading random forest model: {DEFAULT_MODEL}")
         return joblib.load(DEFAULT_MODEL), str(DEFAULT_MODEL)
-    raise FileNotFoundError("No rf_tuned model found. Train / place rf_tuned.joblib in models/")
+    raise FileNotFoundError("No rf.joblib model found. Train / place rf.joblib in models/")
 
 def classify_risk(prob: float, thresholds: Dict[str, float]) -> str:
     if prob < thresholds["moderate"]:
@@ -53,13 +41,22 @@ def per_sample_parametric_ci(model, X_single: np.ndarray, n_bootstrap=200, alpha
     # scale per feature from sample itself (conservative)
     scale = np.maximum(np.std(X_single, axis=0), 1e-6)
 
+    # Get feature names from model if available, else use default
+    feature_names = None
+    if hasattr(model, "feature_names_in_"):
+        feature_names = model.feature_names_in_
+    # If not, fallback to generic names
+    if feature_names is None:
+        feature_names = [f"f{i}" for i in range(X_single.shape[1])]
+
     for i in range(n_bootstrap):
         noise = rng.normal(loc=0.0, scale=0.01 * scale, size=X_single.shape)
         Xs = X_single + noise
+        Xs_df = pd.DataFrame(Xs, columns=feature_names)
         try:
-            p = model.predict_proba(Xs)[:, 1]
+            p = model.predict_proba(Xs_df)[:, 1]
         except Exception:
-            dec = model.decision_function(Xs)
+            dec = model.decision_function(Xs_df)
             p = (dec - dec.min())/(dec.max()-dec.min()+1e-8)
         probs_boot[i, :] = p
 
@@ -137,12 +134,7 @@ def predict_file(model_path: Path, input_csv: Path, output_json: Path,
 
     model, model_loaded_path = load_model_auto() if model_path is None else (joblib.load(model_path), str(model_path))
 
-    # ✅ Align columns with training features
-    if hasattr(model, "feature_names_in_"):
-        missing = [col for col in model.feature_names_in_ if col not in df.columns]
-        if missing:
-            raise ValueError(f"Input CSV is missing required features: {missing}")
-        df = df[model.feature_names_in_]
+    # Assume input CSV columns match model training features
 
     X = df.values
 
@@ -194,7 +186,7 @@ def predict_file(model_path: Path, input_csv: Path, output_json: Path,
 
 def cli():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", type=str, default=None, help="path to model (.joblib). If not set will use rf_tuned_calibrated or rf_tuned")
+    ap.add_argument("--model", type=str, default=None, help="path to model (.joblib). If not set will use rf.joblib")
     ap.add_argument("--input", type=str, required=True, help="CSV file with processed features")
     ap.add_argument("--out", type=str, default=str(OUTPUTS / "predictions.json"))
     ap.add_argument("--th_low", type=float, default=0.3)

@@ -4,7 +4,7 @@
     "min_samples_split": 2,
     "n_estimators": 600
   },
-  "rf_best_f1": 0.9245987115246959,
+  "rf_best_f1": 0.9318813652059553,
   "svm_best_params": {
     "svc__kernel": "rbf",
     "svc__gamma": 0.5455594781168515,
@@ -12,12 +12,13 @@
   },
   "svm_best_f1": 0.8974439192809861,
   "mlp_best_params": {
-    "mlp__alpha": 0.0001,
+    "mlp__alpha": 0.001,
     "mlp__hidden_layer_sizes": [
       64,
-      32
+      32,
+      16
     ],
     "mlp__learning_rate_init": 0.001
   },
-  "mlp_best_f1": 0.8337295646851824
+  "mlp_best_f1": 0.8340688531099418
 }

@@ -38,7 +38,7 @@ def main():
         feature_names = X_test.columns.tolist()
 
     # Load best RF model
-    model_path = MODELS / "rf_tuned.joblib"
+    model_path = MODELS / "rf.joblib"
     if not model_path.exists():
         raise FileNotFoundError(f"Model not found: {model_path}")
     rf = load(model_path)

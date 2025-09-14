@@ -1,8 +1,3 @@
-# scripts/predict_pipeline.py
-"""
-Lightweight wrapper to call the risk categorization pipeline from Python code.
-Uses rf_tuned_calibrated if present, otherwise rf_tuned.
-"""
 
 import sys
 from pathlib import Path

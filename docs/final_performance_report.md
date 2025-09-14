@@ -1,3 +1,86 @@
+# Final Performance Report
+
+## Baseline Logistic Regression (Validation)
+```
+{
+  "model": "logreg_baseline",
+  "val_metrics": {
+    "accuracy": 0.8214285714285714,
+    "precision": 0.8297872340425532,
+    "recall": 0.8478260869565217,
+    "f1": 0.8387096774193549,
+    "specificity": 0.7894736842105263,
+    "roc_auc": 0.8901601830663616
+  }
+}
+```
+## Random Forest (Validation)
+```
+{
+  "model": "random_forest",
+  "val_metrics": {
+    "accuracy": 0.9285714285714286,
+    "precision": 0.9761904761904762,
+    "recall": 0.8913043478260869,
+    "f1": 0.9318181818181818,
+    "specificity": 0.9736842105263158,
+    "roc_auc": 0.9925629290617849
+  }
+}
+```
+## Cross-Validation Results
+```
+{
+  "k": 5,
+  "cv_results": {
+    "logreg": {
+      "cv_f1_mean": 0.8298415352951952,
+      "cv_f1_std": 0.026453297777946746
+    },
+    "rf": {
+      "cv_f1_mean": 0.9098136412219114,
+      "cv_f1_std": 0.02946034832825681
+    },
+    "svm_rbf": {
+      "cv_f1_mean": 0.8598981693041099,
+      "cv_f1_std": 0.022112260519306898
+    },
+    "mlp": {
+      "cv_f1_mean": 0.881738379663209,
+      "cv_f1_std": 0.008029049059876347
+    }
+  }
+}
+```
+## Hyperparameter Tuning Summary
+```
+{
+  "rf_best_params": {
+    "max_depth": null,
+    "min_samples_split": 2,
+    "n_estimators": 600
+  },
+  "rf_best_f1": 0.9318813652059553,
+  "svm_best_params": {
+    "svc__kernel": "rbf",
+    "svc__gamma": 0.5455594781168515,
+    "svc__C": 61.584821106602604
+  },
+  "svm_best_f1": 0.8974439192809861,
+  "mlp_best_params": {
+    "mlp__alpha": 0.001,
+    "mlp__hidden_layer_sizes": [
+      64,
+      32,
+      16
+    ],
+    "mlp__learning_rate_init": 0.001
+  },
+  "mlp_best_f1": 0.8340688531099418
+}
+```
+## Statistical Tests (pairwise)
+```
 {
   "rf__vs__rf_tuned": {
     "mcnemar_statistic": 0.07142857142857142,
@@ -168,3 +251,55 @@
     "b_only": 4
   }
 }
+```
+## Calibration & Risk thresholds
+```
+{
+  "model": "rf_tuned",
+  "brier_test": 0.06793882491035556,
+  "prob_mean_ci": [
+    0.42761869832082383,
+    0.5908141592986987
+  ],
+  "thresholds": {
+    "low": [
+      0.0,
+      0.3
+    ],
+    "moderate": [
+      0.3,
+      0.7
+    ],
+    "high": [
+      0.7,
+      1.01
+    ]
+  }
+}
+```
+## Top Feature Importances (RF)
+| Unnamed: 0        |         0 |
+|:------------------|----------:|
+| st_slope          | 0.20371   |
+| oldpeak           | 0.148372  |
+| max_heart_rate    | 0.104026  |
+| exercise_angina   | 0.0935326 |
+| risk_score_simple | 0.0890751 |
+| age               | 0.0865478 |
+| chest_pain_type_4 | 0.0856477 |
+| resting_bp_s      | 0.0682855 |
+| cholesterol       | 0.0611937 |
+| resting_ecg       | 0.0284285 |
+## SHAP Top Features
+| Unnamed: 0        |         0 |
+|:------------------|----------:|
+| st_slope          | 0.138913  |
+| oldpeak           | 0.0848124 |
+| chest_pain_type_4 | 0.0831252 |
+| exercise_angina   | 0.0725938 |
+| max_heart_rate    | 0.0420281 |
+| age               | 0.0395273 |
+| risk_score_simple | 0.0322416 |
+| resting_bp_s      | 0.0245489 |
+| resting_ecg       | 0.0206406 |
+| cholesterol       | 0.0141945 |
